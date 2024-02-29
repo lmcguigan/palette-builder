@@ -1,0 +1,58 @@
+<div class="outer-container">
+    <div *ngIf="authService.user$|async; let user; else loadingBlock" class="user-info">
+        <h2>Account Information</h2>
+        <h3>Email address</h3>
+        <div *ngIf="iseditingEmail; else emailDisplay">
+            <mat-form-field class="example-form-field" appearance="fill">
+                <mat-label>Email</mat-label>
+                <input matInput type="text" [formControl]="email">
+            </mat-form-field>
+            <button mat-button (click)="onSaveEmail()">Save</button>
+            <button mat-button color="warn" (click)="onEditEmail()">Cancel</button>
+        </div>
+        <ng-template #emailDisplay>
+            <div class="info-row">
+                <p>{{user.email}}</p>
+                <button mat-stroked-button (click)="onEditEmail()">Update</button>
+            </div>
+        </ng-template>
+        <h3>Display name</h3>
+        <div *ngIf="iseditingName; else nameDisplay">
+            <mat-form-field class="example-form-field" appearance="fill">
+                <mat-label>Name</mat-label>
+                <input matInput type="text" [formControl]="name">
+            </mat-form-field>
+            <button mat-button (click)="onSaveName()">Save</button>
+            <button mat-button color="warn" (click)="onEditName()">Cancel</button>
+        </div>
+        <ng-template #nameDisplay>
+            <div class="info-row">
+            <p>{{user.displayName}}</p>
+            <button mat-stroked-button (click)="onEditName()">{{user.displayName ? 'Update' : 'Add'}}</button>
+            </div>
+        </ng-template>
+    </div>
+    <ng-template #loadingBlock>
+
+    </ng-template>
+    <h2>My saved palettes</h2>
+    <mat-card *ngFor="let palette of palettes$ | async" class="palette-card">
+        <mat-card-content>
+            <h3>{{palette.name}}</h3>
+            <div *ngFor="let color of palette.colors; let index = index; last as last">
+                <div class="prev-section color-prev-section palette-item">
+                    <div class="color-preview" [style.background-color]="color.color"></div>
+                    <div>
+                        <h4 class="palette-color-line" mat-line>{{color.name}}</h4>
+                        <p class="palette-color-line" mat-line>{{color.color}}</p>
+                        <p class="palette-color-line" mat-line>{{color.hex}}</p>
+                    </div>
+                </div>
+                <mat-divider [inset]="true" *ngIf="!last && palette.colors.length > 0"></mat-divider>
+            </div>
+        </mat-card-content>
+        <mat-card-actions align="right">
+            <button mat-raised-button color="warn" (click)="deletePalette(palette.id)">Delete</button>
+        </mat-card-actions>
+    </mat-card>
+</div>

@@ -1,0 +1,76 @@
+<div class="outer-container">
+    <div class="container">
+        <div class="picker-row">
+            <div class="color-preview" [style.background-color]="currentColorHex"></div>
+            <div class="slider-holder">
+                <mat-form-field appearance="fill">
+                    <mat-label>Select color mode</mat-label>
+                    <mat-select [ngModel]="colorMode" (ngModelChange)="onColorModeChanged($event)">
+                    <mat-option value="RGB">RGB</mat-option>
+                    <mat-option value="HSL">HSL</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <div>
+                    <div *ngFor="let control of sliderControls" class="sliders-cont">
+                        <p class="control-name">{{control.name}}</p>
+                        <div class="slider-outer">
+                            <input type="range" [ngClass]="'slider ' + control.name" [ngStyle]="{'background': getBg(control.name)}" [(ngModel)]="control.currentValue" (ngModelChange)="onSliderChanged()" min="0" [max]="control.max"/>
+                            <span class="value-label">{{control.currentValue}}</span>
+                        </div>
+                    </div>
+                </div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Name your color</mat-label>
+                    <input matInput type="text" [(ngModel)]="colorName">
+                    <button mat-button *ngIf="colorName" matSuffix mat-icon-button aria-label="Clear" (click)="colorName=''">
+                    <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+                <button mat-raised-button color="primary" [disabled]="usedColorNames.includes(colorName) || usedColorHexs.includes(currentColorHex)" (click)="onAdd()">Add to Palette</button>
+            </div>
+        </div>
+    </div>
+    <div class="palette-container">
+        <mat-card class="palette-card">
+            <div>
+                <h3>Palette Preview</h3>
+                <mat-form-field appearance="fill">
+                    <mat-label>Name your palette</mat-label>
+                    <input matInput type="text" [(ngModel)]="paletteName">
+                    <button mat-button *ngIf="paletteName" matSuffix mat-icon-button aria-label="Clear" (click)="paletteName=''">
+                    <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+                <p *ngIf="(colorService.colors$ | async).length === 0">Colors that you add will appear here.</p>
+            </div>
+            <mat-card-content>
+            <mat-list>
+                <mat-list-item *ngFor="let color of (colorService.colors$ | async); let index = index; last as last">
+                    <div class="prev-section color-prev-section">
+                        <div class="color-preview" [style.background-color]="color.color"></div>
+                        <div>
+                            <h4 class="palette-color-line" mat-line>{{color.name}}</h4>
+                            <p class="palette-color-line" mat-line>{{color.color}}</p>
+                            <p class="palette-color-line" mat-line>{{color.hex}}</p>
+                        </div>
+                    </div>
+                    <div class="prev-section button-section">
+                        <button mat-stroked-button (click)="onEditColor(index)" color="primary" class="edit-button">
+                            Edit<mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-stroked-button (click)="onRemoveColor(index)" color="warn">
+                            Delete<mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                    <mat-divider class="margin-divider" [inset]="true" *ngIf="!last && (colorService.colors$ | async).length > 0"></mat-divider>
+                </mat-list-item>
+            </mat-list>
+            </mat-card-content>
+            <mat-card-actions align="end">
+            <button mat-raised-button color="primary" (click)="onSavePalette()" [disabled]="(colorService.colors$ | async).length === 0">Save this palette</button>
+            <button mat-raised-button color="accent" (click)="onGetJson()" [disabled]="(colorService.colors$ | async).length === 0">Get JSON</button>
+            <!-- <button mat-button (click)="goToPreview()">Preview</button> -->
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>

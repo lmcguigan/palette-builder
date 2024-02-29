@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Sign In</h1>
+<div mat-dialog-content class="max-width">
+    <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input type="email" matInput [(ngModel)]="email">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Password</mat-label>
+        <input type="password" matInput [(ngModel)]="password">
+    </mat-form-field>
+    <p *ngIf="showError" color="warn">The email and password don't correspond with any in our records.</p>
+</div>
+<div mat-dialog-actions>
+    <button mat-raised-button (click)="onSignIn()">Sign In</button>
+    <button mat-raised-button color="warn" (click)="onSignUp()">I Need to Sign Up</button>
+</div>

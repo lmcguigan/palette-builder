@@ -1,0 +1,7 @@
+<h1 mat-dialog-title>JSON</h1>
+<div mat-dialog-content>
+  <pre>{{object | json}}</pre>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button [cdkCopyToClipboard]="stringifiedObject">Copy value</button>
+</div>

@@ -1,0 +1,15 @@
+<div>
+  <mat-toolbar>
+    <h1>Pigmentastico</h1>
+    <span class="spacer"></span>
+    <div *ngIf="(authService.user$|async); else anon">
+      <button mat-button color="primary" (click)="onClickMyAccount()">My Account</button>
+      <button mat-button color="primary" (click)="onClickBuilder()">Builder</button>
+      <button mat-button color="accent" (click)="onClickSignOut()">Sign Out</button>
+    </div>
+    <ng-template #anon>
+      <button mat-button color="accent" (click)="onClickSignIn()">Sign In</button>
+    </ng-template>
+  </mat-toolbar>
+  <router-outlet></router-outlet>
+</div>

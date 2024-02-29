@@ -1,0 +1,31 @@
+<h1 mat-dialog-title>Edit Color Swatch</h1>
+<div mat-dialog-content>
+  <div class="mixer">
+    <div class="swatch-holder">
+      <div class="color-swatch" [style.background-color]="data.selectedColor.color"></div>
+      <div class="color-swatch" [style.background-color]="currentColorString"></div>
+    </div>
+    <div>
+      <mat-form-field appearance="fill">
+        <mat-label>Select color mode</mat-label>
+        <mat-select [ngModel]="colorMode" (ngModelChange)="onColorModeChanged($event)">
+        <mat-option value="RGB">RGB</mat-option>
+        <mat-option value="HSL">HSL</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div *ngFor="let control of controls" class="slider-outer">
+          <span>{{control?.name | firstLetter}}</span>
+          <mat-slider [(ngModel)]="control.currentValue" (ngModelChange)="onSliderChanged()" min="0" [max]="control.max"></mat-slider>
+          <span>{{control.currentValue}}</span>
+      </div>
+    </div>
+  </div>
+  <mat-form-field appearance="fill">
+    <mat-label>Color name</mat-label>
+    <input matInput [(ngModel)]="colorName">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button (click)="onSave()">Save changes</button>
+  <button mat-raised-button (click)="onDiscard()">Discard changes</button>
+</div>

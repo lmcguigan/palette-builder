@@ -1,0 +1,21 @@
+.outer-container{
+    padding: 2em;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+.palette-item{
+    margin: 1em;
+}
+.user-info{
+    max-width: 400px;
+}
+.info-row{
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 3em;
+}
+mat-divider{
+    width: 100%
+}
