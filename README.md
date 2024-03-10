@@ -18,17 +18,7 @@ To run this locally you'll need to set up your own Firebase project to read and 
 
 You'll need a Google account to this. Navigate to the [Firebase Console](https://console.firebase.google.com/) and follow the instructions to create a new project. 
 
-In the root project folder, create a `.env` file. Copy and paste the following into that file, replacing the double curly brackets with the values for your project. All of this info can be found in the Settings section for your project in the Console.
-
-```
-FIREBASE_API_KEY="{{YOUR_API_KEY}}",
-FIREBASE_AUTH_DOMAIN="{{YOUR_AUTH_DOMAIN}}",
-FIREBASE_DATABASE_URL="{{YOUR_DATABASE_URL}}",
-FIREBASE_PROJECT_ID="{{YOUR_PROJECT_ID}}",
-FIREBASE_STORAGE_BUCKET="{{YOUR_STORAGE_BUCKET}}",
-FIREBASE_MESSAGING_SENDER_ID="{{YOUR_MESSAGING_SENDER_ID}}",
-FIREBASE_APP_ID="{{YOUR_APP_ID}}"
-```
+In the root project folder, locate the `environments` folder and open the `environment.ts` file. Replace the empty strings with the values for your project. All of this info can be found in the Settings section for your project in the Console.
 
 Now you'll be able to create an authorized user for your project, and save palette data to Firestore.
 

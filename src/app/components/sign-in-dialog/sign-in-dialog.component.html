@@ -8,7 +8,8 @@
         <mat-label>Password</mat-label>
         <input type="password" matInput [(ngModel)]="password">
     </mat-form-field>
-    <p *ngIf="showError" color="warn">The email and password don't correspond with any in our records.</p>
+    <p *ngIf="error" color="warn">{{error}}</p>
+    <p>Forgot password? Click <a [routerLink]="" (click)="onResetPassword()">here</a> to reset it.</p>
 </div>
 <div mat-dialog-actions>
     <button mat-raised-button (click)="onSignIn()">Sign In</button>

@@ -41,6 +41,8 @@ var firebaseConfig = {
   appId: environment.FIREBASE_APP_ID
 };
 
+console.log(firebaseConfig)
+
 @NgModule({
   declarations: [
     AppComponent,

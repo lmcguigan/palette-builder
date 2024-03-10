@@ -38,4 +38,8 @@ export class AuthService {
         return (await this.auth.currentUser).updateEmail(email);
         
     }
+    async requestPasswordReset(email: string){
+        return this.auth.sendPasswordResetEmail(email).then(res => res)
+        .catch(err => {throw err})
+    }
 }

@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -10,10 +11,11 @@ import { AuthService } from 'src/app/services/auth.service';
 export class SignInDialogComponent implements OnInit {
   email: string
   password: string
-  showError: boolean
+  error: string | undefined
   constructor(
     private authService: AuthService,
     private dialogRef: MatDialogRef<SignInDialogComponent>,
+    private snackbar: MatSnackBar,
     private cd: ChangeDetectorRef
   ) { }
 
@@ -25,8 +27,7 @@ export class SignInDialogComponent implements OnInit {
         this.dialogRef.close()
       }).catch((err) => {
         // show error
-        this.showError = true
-        console.log(this.showError)
+        this.error = "The email and password don't correspond with any in our records."
         this.cd.detectChanges()
       })
   }
@@ -35,9 +36,20 @@ export class SignInDialogComponent implements OnInit {
       .then(() => {
         this.dialogRef.close()
       }).catch((err) => {
-        // show error
-        console.log(err)
+        this.error = "We encountered an issue while signing you up. Please try again."
       })
+  }
+  onResetPassword(){
+    console.log('reset password')
+    if(this.email){
+      console.log(this.email)
+      this.authService.requestPasswordReset(this.email).then(res => {
+        this.dialogRef.close()
+        this.snackbar.open("Password reset instructions sent to email.", undefined, {duration: 500})
+      })
+    } else {
+      this.error = "Please enter a valid email address in the field above."
+    }
   }
 
 }
