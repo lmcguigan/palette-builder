@@ -36,7 +36,8 @@
 
     </ng-template>
     <h2>My saved palettes</h2>
-    <mat-card *ngFor="let palette of palettes$ | async" class="palette-card">
+    <div class="cards-container">
+    <mat-card *ngFor="let palette of palettes$ | async" class="palette-card saved-palette-card">
         <mat-card-content>
             <h3>{{palette.name}}</h3>
             <div *ngFor="let color of palette.colors; let index = index; last as last">
@@ -55,4 +56,5 @@
             <button mat-raised-button color="warn" (click)="deletePalette(palette.id)">Delete</button>
         </mat-card-actions>
     </mat-card>
+    </div>
 </div>

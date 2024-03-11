@@ -8,10 +8,14 @@
         flex-direction: row;
         justify-content: space-evenly;
         align-items: center;
+        @media screen and (max-width: 575px) {
+            flex-wrap: wrap;
+        }
         .color-preview{
             height: 300px;
             width: 300px;
             border-radius: 150px;
+            margin: 0em 1em 2em;
         }
         .slider-holder{
             display: flex;
@@ -19,6 +23,7 @@
             padding-left: 1em;
             padding-right: 1em;
             min-width: 240px;
+            flex: 1;
             p.control-name{
                 margin: 0;
             }
@@ -42,11 +47,6 @@
         justify-content: space-around;
     }
 }
-.color-preview{
-    height: 70px;
-    width: 70px;
-    margin-right: 1em;
-}
 .outer-container{
     padding: 2em;
     display: flex;
@@ -65,15 +65,6 @@
     display: flex;
     justify-content: center;
 }
-.palette-card{
-    min-width: 350px;
-    max-width: 450px;
-    display: flex !important;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 16px 20px 30px !important;
-    margin-bottom: 1em;
-}
 .mat-slider-horizontal{
     display: flex;
     flex: 1;
@@ -84,23 +75,6 @@ div.mat-list-item-content{
 }
 .mat-list-base .mat-list-item{
     height: auto !important;
-}
-.prev-section{
-    display: flex;
-    flex: 1;
-    justify-content: space-around;
-    &.color-prev-section{
-        min-width: 180px;
-        justify-content: flex-start;
-    }
-    &.button-section{
-        max-width: 100px;
-        flex-direction: column;
-        margin-bottom: 10px;
-        .mat-stroked-button{
-            margin-top: 10px;
-        }
-    }
 }
 
 .slider{
